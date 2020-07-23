@@ -14,12 +14,12 @@ This forces standard library implementers to choose: They can either adopt the s
 
 Other than that it offers the following features:
 
-- Generates perfectly, uniformly distributed values strictly on the interval `[a, b)`.
-- All values lie within `[min(), max()]` with `max() < b`.
+- Generates perfectly, uniformly distributed values strictly on the interval `[a, b)` for a=0 and b=1.
+- All values lie within `[min(), max()]` with `max() < b` for a=0 and b=1.
 - Supports all (standard-conforming) RNGs.
 - Guarantees to invoke the RNG at most `ceil({24|53} / log2(rng.max()-rng.min()+1))` times for `{float|double}` respectively.
 - Matches the performance of `std::uniform_real_distribution`.
-- Allows to generate right-inclusive random numbers on the interval `(a, b]` by passing `true` as the `right_inc` template argument: `nonstd::uniform_real_distribution<float, true>` (default value is `false`).
+- Allows to generate right-inclusive random numbers on the interval `(a, b]` (for a=0 and b=1) by passing `true` as the `right_inc` template argument: `nonstd::uniform_real_distribution<float, true>` (default value is `false`).
 
 `nonstd::uniform_real_distribution` uses the well-established technique in (real) random number generation of directly filling the matnissa with (uniform) random bits and simply discarding any potentially left-over entropy [as described by Vigna Sebastiano](http://prng.di.unimi.it/) (section "Generating uniform doubles in the unit interval"). 
 
