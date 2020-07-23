@@ -88,15 +88,15 @@ public:
     
     result_type min() const {
         if constexpr(std::is_same_v<Real, float>)
-            return Real(right_inc) / 16777216.0f;
+            return _params.a + (_params.b - _params.a) * (Real(right_inc) / 16777216.0f);
         else
-            return Real(right_inc) / 9007199254740992.0;
+            return _params.a + (_params.b - _params.a) * (Real(right_inc) / 9007199254740992.0);
     }
     result_type max() const{
         if constexpr(std::is_same_v<Real, float>)
-            return (0xffffff + Real(right_inc)) / 16777216.0f;
+            return _params.a + (_params.b - _params.a) * ((0xffffff + Real(right_inc)) / 16777216.0f);
         else
-            return (0x1fffffffffffff + Real(right_inc)) / 9007199254740992.0;
+            return _params.a + (_params.b - _params.a) * ((0x1fffffffffffff + Real(right_inc)) / 9007199254740992.0);
     }
 
 private:
