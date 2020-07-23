@@ -64,6 +64,7 @@ public:
     template <class Gen>
     result_type operator()(Gen & gen, param_type const & params) {
         static_assert(gen.min() < gen.max(), "a rng must provide at least 1 bit of entropy");
+        static_assert(!(~(gen.max() - gen.min())), "only works with power-of-2 engines");
         assert(params.a < params.b);
         
         constexpr int entropy = detail::entropy(gen.max() - gen.min());
