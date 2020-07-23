@@ -64,6 +64,7 @@ public:
     template <class Gen>
     result_type operator()(Gen & gen, param_type const & params) {
         static_assert(gen.min() < gen.max(), "a rng must provide at least 1 bit of entropy");
+        assert(params.a < params.b);
         
         constexpr int entropy = detail::entropy(gen.max() - gen.min());
         constexpr bool is_float_v = std::is_same_v<Real, float>;
@@ -77,7 +78,7 @@ public:
             rnd |= static_cast<rnd_t>(gen() - gen.min()) << i;
         }
         
-        return ((rnd & mask) + Real(right_inc)) / divisor;
+        return params.a + (params.b - params.a) * (((rnd & mask) + Real(right_inc)) / divisor);
     }
     
     result_type a() const { return _params.a; }
